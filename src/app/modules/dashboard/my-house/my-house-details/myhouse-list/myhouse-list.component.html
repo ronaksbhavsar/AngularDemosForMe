@@ -1,0 +1,19 @@
+<!-- <div class="list-container red-side-tab">
+  <dx-data-grid #myHouseGrid [showBorders]="true" (onSelectionChanged)="onCategorySelection($event)" [hoverStateEnabled]="true"
+                keyExpr="SectionId" [showColumnHeaders]="false" [showColumnLines]="false" [showRowLines]="true" [dataSource]="myHouseModelList"
+                >
+      <dxo-selection mode="single" [allowSelectAll]="false"></dxo-selection>
+      <dxo-paging [enabled]="false"></dxo-paging>
+      <dxi-column dataField="SectionName"></dxi-column>
+  </dx-data-grid>
+</div> -->
+
+<div class="list-container red-side-tab">
+  <dx-data-grid  [rowAlternationEnabled]="true" #myHouseGrid [showBorders]="true" (onSelectionChanged)="onCategorySelection($event)" [hoverStateEnabled]="true"
+    keyExpr="SectionId" [showColumnHeaders]="false" [showColumnLines]="false" [showRowLines]="true" [dataSource]="myHouseModelList"
+    [(selectedRowKeys)]="selectedRows">
+    <dxo-selection mode="single" [allowSelectAll]="false"></dxo-selection>
+    <dxo-paging [enabled]="false"></dxo-paging>
+    <dxi-column dataField="SectionName"></dxi-column>
+  </dx-data-grid>
+</div>

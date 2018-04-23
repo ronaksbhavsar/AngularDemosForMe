@@ -1,0 +1,80 @@
+<div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 dashboard-galley-common" *ngIf="isDashboard && communityLotPictures.length > 0">
+  <ngx-carousel [inputs]="carouselConfig">
+    <ngx-item *ngFor="let item of communityLotPictures" NgxCarouselItem>
+      <div *ngIf="item.FileAccessUrl;then catImageContent else noImageContent"></div>
+      <ng-template #catImageContent>
+        <img fixBrokenImage class="img-responsive" width="100%" [src]="item.FileAccessUrl">
+      </ng-template>
+      <ng-template #noImageContent>
+        <img fixBrokenImage class="img-responsive" width="100%" src="assets/img/NoImage.jpg">
+      </ng-template>
+    </ngx-item>
+    <button NgxCarouselPrev title="Previous" class='leftRs'>
+      <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    </button>
+    <button NgxCarouselNext title="Next" class='rightRs'>
+      <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    </button>
+  </ngx-carousel>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="(TaskID>0 && (communityLotPictures.length == 0))">
+  <p class="no-data-home-pic">No Picture uploaded for this milestone yet.</p>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" *ngIf="(!isDashboard && TaskID==0 && (communityLotPictures.length == 0))">
+  <p class="no-data-home-pic">No Picture uploaded for this Lot yet.</p>
+</div>
+<div [ngClass]="{'col-lg-6 col-md-4 col-sm-12 col-xs-12' : isDashboard }">
+  <div class="col-xs-12 col-sm-6 col-lg-6 col-md-12 image-hover home-pic-bottom" *ngFor="let picture of communityLotPictures">
+    <img fixBrokenImage class="img-responsive image-border" [src]="picture.FileAccessUrl" width="100%" />
+    <div class="sharebtn">
+      <button title="Twitter" shareButton="twitter" [style.backgroundColor]="share.prop.twitter.color" [sbUrl]="picture.FileAccessUrl">
+        <i [class]="share.prop.twitter.icon"></i>
+      </button>
+      <button title="Facebook" shareButton="facebook" [style.backgroundColor]="share.prop.facebook.color" [sbUrl]="picture.FileAccessUrl">
+        <i [class]="share.prop.facebook.icon"></i>
+      </button>
+      <button title="Pinterest" shareButton="pinterest" [style.backgroundColor]="share.prop.pinterest.color" [sbUrl]="picture.FileAccessUrl">
+        <i [class]="share.prop.pinterest.icon"></i>
+      </button>
+      <!--Material example-->
+      <!-- <button title="Telegram" md-icon-button shareButton="telegram" [style.color]="share.prop.telegram.color" [sbUrl]="picture.FileAccessUrl">
+        <i [class]="share.prop.telegram.icon"></i>
+      </button> -->
+    </div>
+
+  </div>
+  <div class="col-xs-12 center-block no-padding " *ngIf="(isDashboard && (communityLotPictures.length > 0))">
+    <a routerLink="/homepictures" class="btn btn-marron btn-md pull-right" title="View All"> View All </a>
+  </div>
+</div>
+<dx-popup (onTitleRendered)="onShown($event)" class="popup" [showTitle]="true" title="Image Gallery" [width]="500" [height]="500"
+  [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="imagePopupVisible">
+  <div *dxTemplate="let data of 'content'">
+    <div class="">
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <button title="twitter" shareButton="twitter" [style.backgroundColor]="share.prop.twitter.color">
+            <i [class]="share.prop.twitter.icon"></i>
+          </button>
+          <button title="facebook" shareButton="facebook" [style.backgroundColor]="share.prop.facebook.color">
+            <i [class]="share.prop.facebook.icon"></i>
+          </button>
+          <button title="Pinterest" shareButton="pinterest" [style.backgroundColor]="share.prop.pinterest.color">
+            <i [class]="share.prop.pinterest.icon"></i>
+          </button>
+          <button md-icon-button shareButton="telegram" [style.color]="share.prop.telegram.color">
+            <i [class]="share.prop.telegram.icon"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="widget-container">
+            <dx-gallery #gallery id="gallery" [dataSource]="ImageList" [height]="500" [width]="500" [slideshowDelay]="slideshowDelay"
+              [loop]="true" [showNavButtons]="true" [showIndicator]="true"></dx-gallery>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dx-popup>

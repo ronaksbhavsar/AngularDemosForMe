@@ -1,0 +1,18 @@
+.btns{
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    color: #fff;
+    padding: 7px 18px 8px;
+}
+ /* option:hover {
+    background-colour : #000000;
+    color : #ffffff;
+    }
+    {
+   
+} */
+
+select:hover {
+    color: #444645;
+    background-color: rgb(231, 17, 17);
+    }

@@ -1,0 +1,148 @@
+<dx-data-grid *ngIf="!isFlooring" [rowAlternationEnabled]="true" #subSectionGrid [columnHidingEnabled]="true" [wordWrapEnabled]="true"
+    [showBorders]="true" [showColumnHeaders]="true" [showColumnLines]="true" [showRowLines]="true" [dataSource]="designSubCategoriesData">
+    <dxo-load-panel [enabled]="true"></dxo-load-panel>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxi-column dataField="OptionCategory" caption="Section Detail"></dxi-column>
+    <dxi-column dataField="MaterialName" caption="Standard/Upgrades" cellTemplate="standardUpgradesTemplate"></dxi-column>
+    <div *dxTemplate="let data of 'standardUpgradesTemplate'">
+        <div *ngIf="data.data.MaterialName;then upgradeContent else noUpgradeContent"></div>
+        <ng-template #upgradeContent>{{data.data.MaterialName}}</ng-template>
+        <ng-template #noUpgradeContent>No Upgrades Selected</ng-template>
+    </div>
+    <dxi-column dataField="OptionRemarks" cellTemplate="colorsStylesTemplate" [allowFiltering]="false" [allowSorting]="false"
+        caption="Color/Style/Notes Colors"></dxi-column>
+    <div *dxTemplate="let data of 'colorsStylesTemplate'">
+        <div *ngIf="data.data.GetColorsForMaterialViewModelList.length > 0">
+            <dx-select-box [dataSource]="data.data.GetColorsForMaterialViewModelList" displayExpr="TTConfigDtlName" valueExpr="MaterialAttributeDetailID">
+            </dx-select-box>
+        </div>
+        <dx-text-area restrictHtmlTags maxLength="1000" hint="Option Remarks" [(value)]="data.data.OptionRemarks"></dx-text-area>
+    </div>
+    <dxi-column dataField="Upgrade Option" width="100px" cellTemplate="optionTemplate" [allowFiltering]="false" [allowSorting]="false"></dxi-column>
+    <div *dxTemplate="let data of 'optionTemplate'">
+        <dx-button text="Option" hint="Option" (onClick)="onOptionClick(data.data)" type="danger"></dx-button>
+    </div>
+    <dxi-column dataField="OptionQuantity" [width]="70" caption="Quantity"></dxi-column>
+    <dxi-column dataField="OptionPrice" [width]="130" format='currency' precision="2" caption="Price"></dxi-column>
+</dx-data-grid>
+
+<!-- Flooring Grid -->
+<div class="row" *ngIf="isFlooring">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mt8 ">
+        <div class="pull-right">
+            <label class="control-label">(1) Tile/ Wood @ 45 °or Stagger (2) Carpet Pad Upgrade</label>
+        </div>
+    </div>
+</div>
+<dx-data-grid #flooringGrid *ngIf="isFlooring" [rowAlternationEnabled]="true" [columnHidingEnabled]="true" [wordWrapEnabled]="true"
+    [showBorders]="true" [showColumnHeaders]="true" [showColumnLines]="true" [showRowLines]="true" [dataSource]="floorList">
+    <dxo-load-panel [enabled]="true"></dxo-load-panel>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxi-column dataField="Room" width="80px" caption="Room Descr"></dxi-column>
+    <dxi-column dataField="MaterialName" width="100px" caption="Standard" cellTemplate="standardUpgradesTemplate"></dxi-column>
+    <div *dxTemplate="let data of 'standardUpgradesTemplate'">
+        <div *ngIf="data.data.MaterialName;then upgradeContent else noUpgradeContent"></div>
+        <ng-template #upgradeContent>{{data.data.MaterialName}}</ng-template>
+        <ng-template #noUpgradeContent>No Upgrades Selected</ng-template>
+    </div>
+    <dxi-column dataField="MaterialName" caption="Upgrades" cellTemplate="upgradesTemplate"></dxi-column>
+    <div *dxTemplate="let data of 'upgradesTemplate'">
+        <div *ngIf="data.data.GetFlooringMaterialList.length > 0">
+            <dx-select-box hint="Flooring Material" (onValueChanged)="onMaterialValueChanged($event,data.data)" [dataSource]="data.data.GetFlooringMaterialList"
+                displayExpr="Name" valueExpr="ID" [(value)]="data.data.OptionID">
+            </dx-select-box>
+        </div>
+    </div>
+    <dxi-column width="30px" dataField="TileWood45Angle" caption="(1)" cellTemplate="tileWood45AngleTemplate"></dxi-column>
+    <div *dxTemplate="let data of 'tileWood45AngleTemplate'">
+        <dx-check-box hint="TileWood45Angle" (onValueChanged)="onTextboxValueChanged(data.data)" [(value)]="data.data.TileWood45Angle"></dx-check-box>
+    </div>
+    <dxi-column width="30px" dataField="CarpetPad" caption="(2)" cellTemplate="carpetPadTemplate"></dxi-column>
+    <div *dxTemplate="let data of 'carpetPadTemplate'">
+        <dx-check-box hint="CarpetPad" (onValueChanged)="onTextboxValueChanged(data.data)" [(value)]="data.data.CarpetPad"></dx-check-box>
+    </div>
+    <dxi-column dataField="ColorName" caption="Color" width="120px" cellTemplate="colorTemplate"></dxi-column>
+    <div *dxTemplate="let data of 'colorTemplate'">
+        <div *ngIf="data.data.GetColorsForMaterialViewModelList.length > 0">
+            <dx-select-box hint="Colors" [(value)]="data.data.ColorId" [dataSource]="data.data.GetColorsForMaterialViewModelList" displayExpr="TTConfigDtlName"
+                valueExpr="MaterialAttributeDetailID">
+            </dx-select-box>
+        </div>
+    </div>
+    <dxi-column dataField="GroutLookupID" caption="Grouts/Notes" cellTemplate="groutsTemplate"></dxi-column>
+    <div *dxTemplate="let data of 'groutsTemplate'">
+        <div *ngIf="data.data.IsDisplayGrout" class="mt8">
+            <dx-select-box hint="Grout" [(value)]="data.data.GroutLookupID" [dataSource]="data.data.GetGroutNamesList" displayExpr="Name"
+                valueExpr="ID">
+            </dx-select-box>
+        </div>
+        <dx-text-area restrictHtmlTags maxLength="1000" hint="Option Remarks" [(value)]="data.data.OptionRemarks"></dx-text-area>
+    </div>
+    <dxi-column dataField="OptionPrice" [width]="100" format='currency' precision="2" caption="Price"></dxi-column>
+</dx-data-grid>
+
+<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mt8 ">
+    <div class="pull-right">
+        <dx-button text="Submit" hint="Submit" type="danger" [useSubmitBehavior]="false" (onClick)="onSubmitOptionsDataClick($event)"></dx-button>
+        <dx-button text="Cancel" hint="Cancel" type="normal" (onClick)="onCancelAllClick($event)"></dx-button>
+    </div>
+</div>
+
+<dx-popup (onTitleRendered)="onShown($event)" #optionPopup maxWidth="100%" [width]="875" height="400" [showTitle]="true"
+    title="Options" [dragEnabled]="false" [closeOnOutsideClick]="true" (onHiding)="onHidingPopup($event)">
+    <div *dxTemplate="let data of 'content'">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="panel panel-danger">
+                    <div class="panel-body">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-left-0">
+                            <strong class="caption-color">Section: </strong>
+                            <b class="subCategory-color">{{currentSubCategory.SectionName}}</b>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad-left-0">
+                            <strong class="caption-color">Section Detail: </strong>
+                            <b class="subCategory-color">{{currentSubCategory.OptionCategory}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="span7">
+                    <div class="widget stacked widget-table action-table">
+                        <div class="widget-content">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <div class="list-container red-side-tab">
+                                    <dx-data-grid [rowAlternationEnabled]="true" #optionGrid [focusStateEnabled]="true" [columnHidingEnabled]="true" (onSelectionChanged)="onOptionSelection($event)"
+                                        [wordWrapEnabled]="true" [height]="200" [showBorders]="true" [hoverStateEnabled]="true"
+                                        keyExpr="MaterialID" [showColumnLines]="true" [showRowLines]="true" [dataSource]="optionList"
+                                        [selectedRowKeys]="selectedOptionId">
+                                        <dxo-selection mode="single" [allowSelectAll]="false"></dxo-selection>
+                                        <dxo-paging [enabled]="false"></dxo-paging>
+                                        <dxo-scrolling mode="standard" useNative="true" showScrollbar="onScroll"></dxo-scrolling>
+                                        <dxi-column dataField="MaterialName" caption="Options"></dxi-column>
+                                        <!-- <dxi-column dataField="Quantity" width="80px"></dxi-column> -->
+                                        <dxi-column dataField="Quantity" width="80px" cellTemplate="quantityTemplate" [allowFiltering]="false" [allowSorting]="false"></dxi-column>
+                                        <div *dxTemplate="let data of 'quantityTemplate'">
+                                            <dx-text-box restrictHtmlTags [disabled]="data.data.MaterialID === 0" maxLength="3" hint="Quantity" onlyNumbers appBlockCopyPaste
+                                                [(value)]="data.data.Quantity"></dx-text-box>
+                                        </div>
+                                        <dxi-column dataField="RetailPrice" width="100px" format='currency' precision="2" caption="Price"></dxi-column>
+                                    </dx-data-grid>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 mt8 ">
+                                <div class="pull-right">
+                                    <dx-button hint="Submit" text="Submit" type="danger" [useSubmitBehavior]="false" (onClick)="onSubmitClick($event)"></dx-button>
+                                    <dx-button hint="Cancel" text="Cancel" type="normal" (onClick)="onCancelClick($event)"></dx-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</dx-popup>

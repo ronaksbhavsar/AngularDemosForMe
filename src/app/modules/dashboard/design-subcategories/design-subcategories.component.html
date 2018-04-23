@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt8">
+    <div class="welcome_section">
+      <div class="box box-marron box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            <i class="fa fa-paint-brush"></i> {{sectionName}}
+          </h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 mt8">
+            <dashboard-design-categories-list (setSectionText)="SetSection($event)">
+            </dashboard-design-categories-list>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 mt8">
+            <dashboard-subcategories-grid></dashboard-subcategories-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="welcome_section">
+      <div class="box box-marron box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            <i class="fa fa-cogs"></i> Warranty</h3>
+        </div>
+        <div class="box-body">
+          <div class="message">
+            <div class="tabbable-panel margin-tops4">
+              <div class="tabbable-line custom-red-tab">
+                <dx-tab-panel #tabPanel class="">
+                  <dxi-item title="Service Request" icon="fa fa-bullhorn" [template]="'servicerequestTemplate'">
+                  </dxi-item>
+                  <div *dxTemplate="let item of 'servicerequestTemplate'" class="tabpanel-item margin-tops">
+                    <dashboard-service-request></dashboard-service-request>
+                  </div>
+                  <dxi-item title="Maintenance Schedule" icon="fa fa-envelope-o" [template]="'maintenanceTemplate'">
+                  </dxi-item>
+                  <div *dxTemplate="let item of 'maintenanceTemplate'" class="tabpanel-item margin-tops">
+                    <dashboard-maintenance></dashboard-maintenance>
+                  </div>
+                </dx-tab-panel>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="welcome_section">
+      <div class="box box-marron box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            <i class="fa fa-paint-brush"></i> Design</h3>
+        </div>
+        <div class="box-body">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="row">
+              <div class="pull-right mt8">
+                <dx-button text="Add" (onClick)="onAddEditClick('create')" hint="Add Colorsheet" type="danger"></dx-button>
+                <dx-button *ngIf="colorSheetList.length > 1" text="Compare" (onClick)="onCompareClick()" hint="Compare Colorsheets" type="danger"></dx-button>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt8" *ngIf="colorSheetList.length >= colorSheetLimit">
+                <span class="pull-right alert alert-warning"> You can not create more than {{colorSheetLimit}} colorsheets.</span>
+              </div>
+            </div> -->
+            <div class="row">
+              <dx-data-grid [rowAlternationEnabled]="true" showBorders="true" showRowLines="true" showColumnLines="true" [dataSource]="colorSheetList">
+                <dxo-paging [pageSize]="5"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                </dxo-pager>
+                <dxi-column dataField="ColorSheetName" caption="ColorSheets"></dxi-column>
+                <dxi-column dataField="BuyerWishListChangeOrderDateString" caption="Date"></dxi-column>
+                <dxi-column dataField="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
+                <div *dxTemplate="let data of 'cellTemplate'">
+                  <dx-button hint="Edit Colorsheet" icon="fa fa-pencil-square-o" class="fa-2x font-color" (onClick)="onAddEditClick(data.data.BuyerWishListChangeOrderID)"></dx-button>
+                </div>
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

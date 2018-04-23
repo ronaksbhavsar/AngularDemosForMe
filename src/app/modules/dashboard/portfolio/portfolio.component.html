@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="welcome_section">
+            <div class="box box-marron box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <i class="fa fa-file-text-o"></i> Documents</h3>
+                </div>
+                <div class="box-body">
+                    <div class="message">
+                        <div class="tabbable-panel margin-tops4">
+                            <div class="tabbable-line custom-red-tab">
+                                <dx-tab-panel>
+                                    <dxi-item title="Pre-Possession" icon="fa fa-wrench" [template]="'possessionTemplate'">
+                                    </dxi-item>
+                                    <div *dxTemplate="let item of 'possessionTemplate'" class="tabpanel-item margin-tops">
+                                        <app-possession></app-possession>
+                                    </div>
+                                    <dxi-item title="My Home"  icon="fa fa-home" [template]="'myHomeTemplate'">
+                                    </dxi-item>
+                                    <div *dxTemplate="let item of 'myHomeTemplate'" class="tabpanel-item margin-tops">
+                                        <app-myhome></app-myhome>
+                                    </div>
+                                    <dxi-item title="Community"icon="fa fa-users" [template]="'communityTemplate'">
+                                    </dxi-item>
+                                    <div *dxTemplate="let item of 'communityTemplate'" class="tabpanel-item margin-tops">
+                                        <app-community></app-community>
+                                    </div>
+                                </dx-tab-panel>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

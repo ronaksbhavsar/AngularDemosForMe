@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="welcome_section">
+      <div class="box box-marron box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            <i class="fa fa-upload"></i> Upload Interface
+          </h3>
+        </div>
+        <div class="box-body">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="row">
+              <div class="pull-right mt8">
+                <dx-button text="Add" (onClick)="onAddEditClick('create')" hint="Create Colorsheet" type="danger"></dx-button>
+              </div>
+            </div>
+            <div class="row">
+              <dx-data-grid (onRowExpanding)="onRowExpanding($event)" [masterDetail]="{ enabled: true, template: 'detail' }" [rowAlternationEnabled]="true"
+                showBorders="true" showRowLines="true" showColumnLines="true" [dataSource]="uploadList">
+                <dxo-paging [pageSize]="5"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                </dxo-pager>
+                <dxi-column dataField="TaskName" caption="Construction Milestone"></dxi-column>
+                <dxi-column dataField="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
+                <div *dxTemplate="let data of 'cellTemplate'">
+                  <dx-button icon="fa fa-pencil-square-o fa-2x font-color" hint="Edit" (onClick)="onAddEditClick(data.data.TaskID)">
+                  </dx-button>
+                </div>
+                <div *dxTemplate="let uploadFile of 'detail'">
+                  <div *ngFor="let image of uploadFile.data.UploadedFiles; let i = index;">
+                    <div class="col-xs-3">
+                      <div class="img-center-icon">
+                        <img fixBrokenImage class="img-responsive" [src]="image.FileAccessUrl">
+                        <dx-button hint="Remove this Image" class="mt8" icon="fa fa-trash" (onClick)="onRemoveImage(image,uploadFile.data.TaskID)"></dx-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

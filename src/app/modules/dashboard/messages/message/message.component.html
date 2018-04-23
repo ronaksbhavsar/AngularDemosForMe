@@ -1,0 +1,218 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+        <div class="col-md-12">
+            <dx-button [disabled]="lotId === 0" type="danger" hint="Add Message" class="pull-right mt8" (onClick)="AddNewMessage()" text="Add ">
+            </dx-button>
+        </div>
+
+    </div>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="span7">
+                <div class="widget stacked widget-table action-table">
+                    <div class="widget-content">
+                        <dx-data-grid [rowAlternationEnabled]="true" #messageGrid showBorders="true" showRowLines="true" showColumnLines="true" [wordWrapEnabled]="true"
+                            [dataSource]="MessagesModelList" [columnHidingEnabled]="true">
+                            <dxo-filter-row visible="true" [applyFilter]="{key:'auto',name:'Immediately'}"></dxo-filter-row>
+                            <dxo-header-filter visible="true"></dxo-header-filter>
+                            <!-- <dxo-paging [pageSize]="5"></dxo-paging>
+                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                            </dxo-pager> -->
+                            <dxo-load-panel [enabled]="true"></dxo-load-panel>
+                            <dxo-scrolling mode="virtual"></dxo-scrolling>
+                            <dxi-column [width]="130" caption="From User" dataField="FromUser"></dxi-column>
+                            <dxi-column dataField="CreatedDate" caption="Date"></dxi-column>
+                            <dxi-column dataField="Subject"></dxi-column>
+                            <dxi-column dataField="Status"></dxi-column>
+                            <dxi-column dataField="CreatedDate" caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
+                            <div *dxTemplate="let data of 'cellTemplate'">
+                                <dx-button class="mb5" icon="fa fa-trash-o" hint="Delete Message" (onClick)="DeleteMessage(data.data)"> </dx-button>
+                                <dx-button class="mb5" icon="fa fa-reply" hint="Message Reply" (onClick)="Reply(data.data,true)"> </dx-button>
+                                <dx-button class="mb5" icon="fa fa-commenting-o" hint="Message View" (onClick)="showInfo(data.data,false)"> </dx-button>
+                            </div>
+                        </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<dx-popup (onShown)="onShown($event)" (onTitleRendered)="onTitleRendered($event)" class="popup" [showTitle]="true" [title]="replyAndViewTitle"
+    height="100%" [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="popupVisible">
+    <div *dxTemplate="let data of 'content'">
+        <div class="modal-body">
+            <form (ngSubmit)="SaveReply(myForm)" #myForm="ngForm" novalidate>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div class="panel panel-defaulttest panel-info">
+                            <div class="panel-body">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad-left-0">
+                                    <strong>From: </strong>
+                                    <b class="blackcolor">{{MessageList.FromUser}}</b>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad-left-0">
+                                    <strong>Subject: </strong>
+                                    <b class="blackcolor">{{MessageList.Subject}}</b>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad-left-0">
+                                    <strong>Date: </strong>
+                                    <b class="blackcolor">{{MessageList.CreatedDate}}</b>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pad-left-0">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="span7">
+                            <div class="widget stacked widget-table action-table">
+                                <div class="widget-content">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                        <dx-data-grid #replyGrid [rowAlternationEnabled]="true" min-height="100%" [columnHidingEnabled]="true" [wordWrapEnabled]="true"
+                                            showBorders="true" showRowLines="true" showColumnLines="true" [dataSource]="MessageList.messagecomment">
+                                            <dxo-paging [pageSize]="5"></dxo-paging>
+                                            <dxo-scrolling [mode]="standard" [showScrollbar]="onScroll" useNative="true">
+                                            </dxo-scrolling>
+                                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                                            </dxo-pager>
+                                            <dxi-column width="90px" dataField="FROMUSER" caption="Message By"></dxi-column>
+                                            <dxi-column width="550px" dataField="Comment" caption="Message"></dxi-column>
+                                            <dxi-column dataField="CreatedDate" caption="Message On"></dxi-column>
+                                        </dx-data-grid>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-12 no-padding">
+                            <div class="col-md-12 pad-left-0">
+                                <label id="lblmessage" for="exampleInputEmail1">
+                                    Message
+                                    <span class="cls-red">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-12 pad-left-0">
+                                <textarea restrictHtmlTags myNoSpaces maxlength="4000" pattern="^([a-zA-Z0-9_\s\-]*)$" class="form-control" name="message"
+                                    [(ngModel)]="MessageList.message" rows="3" required #message="ngModel"></textarea>
+                                <p *ngIf="message.invalid && submitted" class="cls-red">
+                                    <span *ngIf="message.errors.required"> Message is required.</span>
+                                    <span *ngIf="message.errors.pattern"> Message should not contains special characters.</span>
+                                </p>
+                                <!-- <dx-text-area hint="Message" [height]="107" placeholder="Enter Message" [(value)]="MessageList.message">
+                                    <dx-validator>
+                                        <dxi-validation-rule type="required" message="Message is required"></dxi-validation-rule>
+                                    </dx-validator>
+                                </dx-text-area> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+                            <!-- <button type="submit" class="btn btn-danger btn-md">Save</button>
+                                <button type="button" class="btn btn-default" (click)="ClosePopup()">Cancel</button> -->
+                            <dx-button hint="Save" type="danger" class="" text="Save" [useSubmitBehavior]="true"></dx-button>
+                            <dx-button type="" hint="Cancel" text="Cancel" (onClick)="ClosePopup()"></dx-button>
+                            <!-- <dx-button type="default" class="btn btn-default btn-md btn-custom" text="Cancel" (onClick)="ClosePopup()"></dx-button> -->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</dx-popup>
+<dx-popup (onTitleRendered)="onShown($event)" class="popup" [showTitle]="true" title="Add Message" [dragEnabled]="false"
+    [closeOnOutsideClick]="true" [(visible)]="messagePopupVisible">
+    <div *dxTemplate="let data of 'content'">
+        <!-- <div dx-scroll-view="{}"> -->
+        <!-- <dx-scroll-view> -->
+        <!-- <div class="modal-body"> -->
+        <form (ngSubmit)="SaveMessage(myForm)" #myForm="ngForm" novalidate>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Department
+                            <span class="cls-red">*</span>
+                        </label>
+                        <!-- <dx-select-box hint="Department" [dataSource]="DepartmentList" [(value)]="Message.DepartmentId" displayExpr="Name" valueExpr="ID">
+                            <dx-validator>
+                                <dxi-validation-rule type="required" reevaluate="true" message="Department is required"></dxi-validation-rule>
+                            </dx-validator>
+                        </dx-select-box> -->
+
+                        <select class="form-control" id="department" [(ngModel)]="Message.DepartmentId" name="department" required #department="ngModel">
+                            <option *ngFor="let dept of DepartmentList" [value]="dept.ID">{{dept.Name}}</option>
+                        </select>
+                        <p *ngIf="department.invalid && submitted" class="cls-red">
+                            <span *ngIf="department.errors.required"> Department is required.</span>
+
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Subject
+                            <span class="cls-red">*</span>
+                        </label>
+                        <!-- <dx-text-box myNoSpaces hint="Subject" [(value)]="Message.Subject" placeholder="Enter Subject" maxLength="50">
+                            <dx-validator>
+                                <dxi-validation-rule type="required" reevaluate="true" message="Subject is required"></dxi-validation-rule>
+                            </dx-validator>
+                        </dx-text-box> -->
+                        <input restrictHtmlTags myNoSpaces type="text" class="form-control" id="subject" #subject="ngModel" name="subject" [(ngModel)]="Message.Subject"
+                            placeholder="Enter Subject" required pattern="^([a-zA-Z0-9_\s\-]*)$" maxlength="50">
+
+                        <p *ngIf="subject.invalid && submitted" class="cls-red">
+                            <span *ngIf="subject.errors.required"> Subject is required.</span>
+                            <!-- <span *ngIf="subject.errors.minlength"> Subject must be at least 4 characters long. </span> -->
+                            <span *ngIf="subject.errors.pattern"> Subject should not contain special characters.</span>
+                        </p>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Comment
+                            <span class="cls-red">*</span>
+                        </label>
+                        <!-- <dx-text-area hint="Comment" myNoSpaces [height]="107" placeholder="Enter Comment" [(value)]="Message.Comment">
+                            <dx-validator>
+                                <dxi-validation-rule type="required" message="Comment is required"></dxi-validation-rule>
+                            </dx-validator>
+                        </dx-text-area> -->
+                        <textarea restrictHtmlTags maxlength="4000" myNoSpaces [(ngModel)]="Message.Comment" #comment="ngModel" rows="3" name="comment"
+                            class="form-control" id="comment" required pattern="^([a-zA-Z0-9_\s\-]*)$"></textarea>
+                        <p *ngIf="comment.invalid && submitted" class="cls-red">
+                            <span *ngIf="comment.errors.required"> Comment is required.</span>
+                            <span *ngIf="comment.errors.pattern"> Comment should not contain special characters.</span>
+
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+                        <!-- <dx-button hint="Save" type="danger" class="" text="Save"></dx-button>
+                            <dx-button hint="Cancel" type="" text="Cancel" (onClick)="ClosePopup()"></dx-button> -->
+                        <button type="submit" title="Save" class="btn btn-danger">Save</button>
+
+                        <dx-button hint="Close" type="" text="Close" (onClick)="ClosePopup()">Close</dx-button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- </div> -->
+        <!-- </dx-scroll-view> -->
+    </div>
+</dx-popup>

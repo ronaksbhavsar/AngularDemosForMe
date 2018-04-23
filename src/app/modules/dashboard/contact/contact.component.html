@@ -1,0 +1,125 @@
+<div *ngIf="isDashboard;then dashBoardContent else contactContent"></div>
+
+<ng-template #dashBoardContent>
+  <div class="box">
+    <div class="box-header with-border">
+      <img fixBrokenImage src="assets/img/bar.png">
+      <h3 class="box-title">Salesperson</h3>
+
+      <div class="box-tools pull-right">
+        <img fixBrokenImage src="assets/img/pmanager.png">
+      </div>
+    </div>
+    <div class="box-body">
+      <div class="media">
+        <div class="media-left">
+          <div *ngIf="salesPersonDetail && salesPersonDetail.FileAccessUrl;then imageContent else noImageContent"></div>
+          <ng-template #imageContent>
+            <img fixBrokenImage class="media-object img-circle" width="150" height="150" src="{{salesPersonDetail.FileAccessUrl}}" alt="...">
+          </ng-template>
+          <ng-template #noImageContent>
+            <img fixBrokenImage class="media-object img-circle" width="150" height="150" src="assets/img/NoImage.jpg" />
+          </ng-template>
+        </div>
+        <div class="media-body" *ngIf="salesPersonDetail">
+          <h4 class="media-heading">{{salesPersonDetail.FirstName}} {{salesPersonDetail.LastName}}</h4>
+          <div class="list_description">{{salesPersonDetail.Address1}} {{salesPersonDetail.CityName}}
+            <br/> {{salesPersonDetail.StateName}}
+          </div>
+          <div class="contact_info">
+            <div class="phbx">
+              <div *ngIf="salesPersonDetail && salesPersonDetail.CellPhone;then phonecontent else no_phonecontent"></div>
+              <ng-template #phonecontent>
+                <p>Phone Number</p>
+                <h4>{{salesPersonDetail.CellPhone}}</h4>
+
+              </ng-template>
+              <ng-template #no_phonecontent>
+                <div></div>
+              </ng-template>
+            </div>
+            <div class="phbx">
+              <div *ngIf="salesPersonDetail && salesPersonDetail.FAX;then faxcontent else no_faxcontent"></div>
+              <ng-template #faxcontent>
+                <p>Fax Number</p>
+                <h4>{{salesPersonDetail.FAX}}</h4>
+              </ng-template>
+              <ng-template #no_faxcontent>
+                <div></div>
+              </ng-template>
+            </div>
+            <div class="phbx">
+              <div *ngIf="salesPersonDetail && salesPersonDetail.Email;then emailcontent else no_emailcontent"></div>
+              <ng-template #emailcontent>
+                <p>Email</p>
+                <h4>{{salesPersonDetail.Email}}</h4>
+              </ng-template>
+              <ng-template #no_emailcontent>
+                <div></div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #contactContent>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="welcome_section">
+        <div class="box box-marron box-solid">
+          <div class="box-header with-border">
+            <h3 class="box-title">
+              <i class="fa fa-address-book-o"></i> Contact</h3>
+          </div>
+          <div class="box-body">
+            <div class="no-data-contact" *ngIf="personDetails.length === 0">
+              No record found
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt20" *ngFor="let personDetail of personDetails;">
+              <div class="userbox">
+                <div class="media">
+                  <div class="media-left">
+                    <div *ngIf="personDetail.FileAccessUrl;then urlcontent else no_urlcontent"></div>
+                    <ng-template #urlcontent>
+                      <img fixBrokenImage class="media-object img-circle" src="{{personDetail.FileAccessUrl}}" alt="{{personDetail.FirstName}} {{personDetail.LastName}}"
+                        width="96" height="96">
+                    </ng-template>
+                    <ng-template #no_urlcontent>
+                      <img fixBrokenImage class="media-object img-circle" src="assets/img/Default-User.png" alt="No Image" width="96" height="96">
+                    </ng-template>
+                  </div>
+                  <div class="media-body">
+                    <ul>
+                      <li>
+                        <div class="utitle">{{personDetail.FirstName}} {{personDetail.LastName}}</div>
+                        <div class="uinfo">{{personDetail.UserRole}}</div>
+                      </li>
+                      <li>
+                        <div *ngIf="personDetail.CellPhone;then phonecontent else no_phonecontent"></div>
+                        <ng-template #phonecontent>
+                          <div class="uinfo">{{personDetail.CellPhone}}
+                          </div>
+                        </ng-template>
+                        <ng-template #no_phonecontent>
+                          <div>
+                          </div>
+                        </ng-template>
+                      </li>
+                      <li>
+                        <div class="utitle">Email ID</div>
+                        <div class="uinfo">{{personDetail.Email}}</div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.box-body -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

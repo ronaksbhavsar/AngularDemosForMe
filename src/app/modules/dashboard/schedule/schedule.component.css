@@ -1,0 +1,45 @@
+.nav-tabs {
+    margin-bottom: 2em;
+}
+.nav-tabs {
+    border-bottom: none;
+}
+
+.tabbable-line {
+    background-color: #fff;
+}
+
+.margin-tops4 {
+    margin-top: 20px;
+}
+
+.tabtop li a:last-child {
+    padding: 10px 22px;
+}
+
+.tabtop .active a {
+    background-color: #951623 !important;
+    color: #FFF !important;
+}
+.tabtop li a {
+    color: #1b2834;
+    border-radius: 0px;
+    border: 1px solid #ebebeb !important;
+    font-size: 16px;
+}
+.message .tabtop .active a::before {
+    top: 24px;
+}
+.tabtop .active a::before {
+    content: "♦";
+    position: absolute;
+    top: 80px;
+    left: 40%;
+    color:#951623;
+    font-size: 50px;
+}
+
+/* .dx-datagrid-headers {
+    color: #ffffff !important;
+    background-color: #003666 !important;
+} */

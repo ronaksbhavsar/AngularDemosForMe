@@ -1,0 +1,109 @@
+<header class="main-header psh_header">
+    <a class="logo">
+        <span class="logo-mini">PSH</span>
+        <span class="logo-lg">
+            <img fixBrokenImage src="assets/img/logo.png" class="img-responsive">
+        </span>
+    </a>
+    <nav class="navbar navbar-static-top">
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        </a>
+        <p class="psh-logo-text">Park Square Homes</p>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li>
+                    <div class="navmenu">
+                        <div id="google_translate_element"></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="navmenu">
+                        <div class="form-group home-community-list" *ngIf="communityLots">
+                            <dx-select-box [dataSource]="communityLots" [disabled]="communityLots.length === 1" displayExpr="LotNo" valueExpr="CommunityLotID"
+                                [searchEnabled]="true" (onValueChanged)="onLotValueChanged($event)" [value]="(communityLots.length > 0)?communityLots[0].CommunityLotID:0">
+                            </dx-select-box>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown user user-menu">
+                    <div *ngIf="AuthUserObj;then content else no_content"></div>
+                    <ng-template #content>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <div *ngIf="AuthUserObj && AuthUserObj.FileAccessUrl; then fileContent else nofileContent"></div>
+                            <ng-template #fileContent>
+                                <img fixBrokenImage [src]="AuthUserObj.FileAccessUrl" class="user-image" alt="User Image">
+                            </ng-template>
+                            <ng-template #nofileContent>
+                                <img fixBrokenImage src="assets/img/user.png" class="user-image" alt="User Image">
+                            </ng-template>
+                            <span class="hidden-xs" *ngIf="AuthUserObj">
+                                {{AuthUserObj.FirstName}} {{AuthUserObj.MiddleName}} {{AuthUserObj.LastName}}
+                                <br>
+                                <div *ngIf="AuthUserObj.BuyerID > 0 ;then buyerTemplate else noBuyerTemplate"></div>
+                                <ng-template #buyerTemplate>
+                                    <small>Buyer</small>
+                                </ng-template>
+                                <ng-template #noBuyerTemplate>
+                                    <small>Employee</small>
+                                </ng-template>
+                            </span>
+                        </a>
+                    </ng-template>
+                    <ng-template #no_content>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img fixBrokenImage src="assets/img/user.png" class="user-image" alt="User Image">
+                            <span class="hidden-xs">
+                                No Data
+                                <br>
+                                <small></small>
+                            </span>
+                        </a>
+                    </ng-template>
+                    <ul class="dropdown-menu">
+                        <div *ngIf="commonService.AuthUser.getValue();then licontent else no_licontent"></div>
+                        <ng-template #licontent>
+                            <li class="user-header">
+                                <div *ngIf="AuthUserObj && AuthUserObj.FileAccessUrl; then fileContent else nofileContent"></div>
+                                <ng-template #fileContent>
+                                    <img fixBrokenImage [src]="AuthUserObj.FileAccessUrl" class="img-circle" alt="User Image">
+                                </ng-template>
+                                <ng-template #nofileContent>
+                                    <img fixBrokenImage src="assets/img/user.png" class="img-circle" alt="User Image">
+                                </ng-template>
+
+                                <div *ngIf="AuthUserObj && AuthUserObj.BuyerID > 0 ;then buyerTemplate else noBuyerTemplate"></div>
+                                <ng-template #buyerTemplate>
+                                    <p>
+                                        {{AuthUserObj.FirstName}} {{AuthUserObj.MiddleName}} {{AuthUserObj.LastName}} - Buyer
+                                    </p>
+                                </ng-template>
+                                <ng-template #noBuyerTemplate>
+                                    <p>
+                                        {{AuthUserObj.FirstName}} {{AuthUserObj.MiddleName}} {{AuthUserObj.LastName}} - Employee
+                                    </p>
+                                </ng-template>
+                            </li>
+                        </ng-template>
+                        <ng-template #no_licontent>
+                            <li class="user-header">
+                                <img fixBrokenImage src="assets/img/user.png" class="img-circle" alt="User Image">
+                                <p>
+                                    No Data
+                                </p>
+                            </li>
+                        </ng-template>
+
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <dx-button *ngIf="AuthUserObj && AuthUserObj.BuyerID > 0" text="Profile" hint="Profile" type="danger" (onClick)="onProfileClick($event)"></dx-button>
+                            </div>
+                            <div class="pull-right">
+                                <dx-button text="Sign out" hint="Sign out" (onClick)="logoutClick($event)" type="danger"></dx-button>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <!-- Box Comment -->
+        <div class="welcome_section">
+            <div class="box box-marron box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <i class="fa fa-home"></i> Welcome to Park Square Homes
+                    </h3>
+
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <p>
+                        {{welcomeMessage}}
+                    </p>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+<div class="property_section">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngIf="lotId">
+            <app-dashboard-contact [isDashboard]="true"></app-dashboard-contact>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngIf="lotId">
+            <dashboard-maintenance-checklist></dashboard-maintenance-checklist>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 " *ngIf="lotId">
+            <dashboard-documents></dashboard-documents>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngIf="lotId">
+            <dashboard-announcement></dashboard-announcement>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngIf="lotId">
+            <dashboard-message></dashboard-message>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngIf="lotId">
+            <dashboard-appointments></dashboard-appointments>
+        </div>
+    </div>
+    <!-- <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                    <dashboard-announcement></dashboard-announcement>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                    <dashboard-message></dashboard-message>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                  
+                    <dashboard-appointments></dashboard-appointments>
+                </div>
+            </div>
+    
+        </div> -->
+</div>
+<!-- Home Picture-->
+<div class="home_pictures" [style.visibility]="hasCommunityLotPicturesData && lotId ? 'visible':'hidden'">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <!-- Box Comment -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <img fixBrokenImage src="assets/img/bar.png">
+                    <h3 class="box-title">Home Pictures</h3>
+                    <div class="box-tools pull-right">
+                        <i class="fa fa-paint-brush"></i>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div>
+                        <dashboard-home-pictures-gallery (communityLotPicturesData)="onLotPictures($event)" [isDashboard]='true'></dashboard-home-pictures-gallery>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+
+</div>

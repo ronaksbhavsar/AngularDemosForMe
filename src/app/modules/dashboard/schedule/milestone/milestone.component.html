@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="span7">
+            <div class="widget stacked widget-table action-table">
+                <div class="widget-content">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <dx-data-grid [rowAlternationEnabled]="true" [wordWrapEnabled]="true" showBorders="true" showRowLines="true" showColumnLines="true"
+                            id="gridContainer" [dataSource]="SheduleModelList">
+                            <!-- <dxo-paging [pageSize]="5"></dxo-paging>
+                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                            </dxo-pager> -->
+                            <dxo-load-panel [enabled]="true"></dxo-load-panel>
+                            <dxo-scrolling mode="virtual"></dxo-scrolling>
+                            <dxi-column dataField="TaskName"></dxi-column>
+                            <!-- <dxi-column dataField="DueDate" title="Date"></dxi-column> -->
+                            <dxi-column dataField="CompleteDate"></dxi-column>
+                            <dxi-column dataField="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
+                            <div *dxTemplate="let data of 'cellTemplate'">
+                                <dx-button hint="View" icon="fa fa-eye" (onClick)="ViewImage(data.data.TaskID)"> </dx-button>
+                            </div>
+
+                        </dx-data-grid>
+                    </div>
+                    <!-- /widget-content -->
+                </div>
+                <!-- /widget -->
+            </div>
+        </div>
+    </div>
+
+</div>

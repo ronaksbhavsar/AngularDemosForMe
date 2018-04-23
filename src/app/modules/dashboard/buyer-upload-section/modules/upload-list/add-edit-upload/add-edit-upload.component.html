@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="welcome_section">
+      <div class="box box-marron box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            <i class="fa fa-upload"></i> {{interFaceTitle}}
+          </h3>
+        </div>
+        <div class="box-body">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="row">
+              <div class="pull-right mt8">
+                <dx-button type="back" (onClick)="onBackClick()" hint="Back to List"></dx-button>
+              </div>
+            </div>
+            <div class="row">
+              <form class="form-horizontal" (ngSubmit)="onSave(workOrderForm)" #workOrderForm="ngForm" novalidate>
+                <div class="form-group">
+                  <label class="control-label col-sm-3" for="Construction Milestone">Construction Milestone
+                    <span class="cls-red">*</span>:</label>
+                  <div class="col-sm-8">
+                    <dx-select-box hint="Construction Milestone" [dataSource]="constructionMilestones" [(value)]="buyerUploadModel.TaskID" displayExpr="Name"
+                      valueExpr="ID">
+                    </dx-select-box>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="fileuploader-container">
+                      <div class="drop-container" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+                        [ngClass]="{ 'is-drop-over': dragOver }">
+                      </div>
+                      <label class="upload-btn">
+                        <input class="upload-button" type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput"
+                          multiple>
+                      </label>
+                      <div class="upload-items">
+                        <div class="upload-item" *ngFor="let f of files; let i = index;">
+                          <div class="col-xs-3">
+                            <div class="img-center-icon">
+                              <img fixBrokenImage class="img-responsive" [src]="getPreviewFile(f.id)">
+                              <dx-button hint="Remove this Image" class="mt8" icon="fa fa-trash" (onClick)="removeFile(f.id)"></dx-button>
+                            </div>
+                            <div class="progress progress active">
+                              <div class="progress-bar progress-bar-success progress-bar-striped progress-bar-custom" role="progressbar" [style.width]="f?.progress?.data?.percentage + '%'">
+                                <span class="progress-text-color">{{ f.progress?.data?.percentage }}% Complete</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-10 col-sm-2 ">
+                    <div class="pull-right">
+                      <dx-button [disabled]="files.length === 0" hint="Submit" type="danger" class="" text="Submit" [useSubmitBehavior]="true"></dx-button>
+                      <dx-button hint="Cancel" type="" text="Cancel" (onClick)="onBackButtonClick()"></dx-button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

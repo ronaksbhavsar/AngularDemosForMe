@@ -1,0 +1,45 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+    <div class="row">
+        <div class="col-md-12">
+            <dx-button [disabled]="lotId === 0" hint="Add New Service Request" type="danger" class="pull-right mt8" (onClick)="onAddEditNewRequest('Create')"
+                text="Add New Service Request">
+            </dx-button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="span7">
+                <div class="widget stacked widget-table action-table">
+                    <div class="widget-content">
+                        <dx-data-grid [columnHidingEnabled]="true" [rowAlternationEnabled]="true" showBorders="true" showRowLines="true" showColumnLines="true"
+                            [dataSource]="serviceRequestDetails">
+                            <!-- <dxo-paging [pageSize]="5"></dxo-paging>
+                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                            </dxo-pager> -->
+                            <dxo-load-panel [enabled]="true"></dxo-load-panel>
+                            <dxo-scrolling mode="virtual"></dxo-scrolling>
+                            <dxi-column dataField="OpenFormattedDate" caption="Date"></dxi-column>
+                            <dxi-column dataField="RequestStatus" caption="Status" class="cls"></dxi-column>
+                            <dxi-column dataField="OpenFormattedDate" caption="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
+                            <div *dxTemplate="let data of 'cellTemplate'">
+                                <dx-button [disabled]="data.data.RequestStatus === 'Completed' || data.data.RequestStatus === 'SignOff'" icon="fa fa-pencil-square-o font-color"
+                                    hint="Edit" (onClick)="onAddEditNewRequest(data.data.ServiceRequestID)">
+                                </dx-button>
+                                <dx-button [disabled]="data.data.RequestStatus === 'Completed' || data.data.RequestStatus === 'SignOff'" icon="fa fa-check font-color"
+                                    hint="Mark as Completed" (onClick)="onUpdateSignOffandMarkasDelete(data.data.ServiceRequestID,2)">
+                                </dx-button>
+                                <dx-button [disabled]="data.data.RequestStatus === 'Open' || data.data.RequestStatus === 'SignOff'" icon="fa fa-power-off font-color"
+                                    hint="Sign Off" (onClick)="onUpdateSignOffandMarkasDelete(data.data.ServiceRequestID,1)">
+                                </dx-button>
+                                <dx-button [disabled]="data.data.RequestStatus === 'Completed' || data.data.RequestStatus === 'SignOff'" icon="fa fa-trash-o font-color"
+                                    hint="Remove" (onClick)="onDeleteServiceRequest(data.data.ServiceRequestID)">
+                                </dx-button>
+                            </div>
+                        </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

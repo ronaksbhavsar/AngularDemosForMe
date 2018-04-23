@@ -1,0 +1,43 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+        <div class="span7">
+            <div class="widget stacked widget-table action-table">
+                <div class="widget-content">
+                    <dx-data-grid [rowAlternationEnabled]="true" showBorders="true" showRowLines="true" showColumnLines="true" id="gridContainer"
+                        [wordWrapEnabled]="true" [dataSource]="HomeList">
+                        <!-- <dxo-paging [pageSize]="5"></dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                        </dxo-pager> -->
+                        <dxo-load-panel [enabled]="true"></dxo-load-panel>
+                        <dxo-scrolling mode="virtual"></dxo-scrolling>
+                        <!-- <dxi-column dataField="FileName" class="cls" cellTemplate="cellTemplate"></dxi-column> -->
+                        <dxi-column dataField="FileName" class="cls" cellTemplate="FileNameTemplate"></dxi-column>
+                        <div *dxTemplate="let data of 'FileNameTemplate'">
+                            <a href="{{data.data.FileAccessUrl}}" target="_blank" download>
+                                <span>{{data.data.FileName}} </span>
+                            </a>
+
+
+                        </div>
+                        <dxi-column dataField="CreatedDate" [allowFiltering]="false" [allowSorting]="false"></dxi-column>
+                        <!-- 
+                        <div *dxTemplate="let data of 'cellTemplate'">
+
+
+                            <span>{{data.data.CreatedDate}}
+                                <a href="{{data.data.FileAccessUrl}}" download>
+                                    <i class="fa fa-download"> </i>
+                                </a>
+                            </span>
+
+                        </div> -->
+
+                    </dx-data-grid>
+                </div>
+                <!-- /widget-content -->
+            </div>
+            <!-- /widget -->
+
+        </div>
+    </div>
+</div>

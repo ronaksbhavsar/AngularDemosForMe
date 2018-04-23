@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="welcome_section">
+      <div class="box box-marron box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            <i class="fa fa-pencil-square-o"></i> {{serviceRequestWorkorderTitle}}</h3>
+        </div>
+        <div class="box-body">
+          <dx-button type="back" hint="Back to list" (onClick)="onBackButtonClick()"></dx-button>
+          <form class="form-horizontal" (ngSubmit)="onSaveWorkorder()" #workOrderForm="ngForm" novalidate>
+            <div class="form-group" id="LocationID">
+              <label class="control-label col-sm-2" for="Location">Location
+                <span class="cls-red">*</span>:</label>
+              <div class="col-sm-7">
+                <dx-select-box hint="Location" [dataSource]="locationData" [(value)]="workOrderDetail.RoomID" displayExpr="LookupValue" valueExpr="LookupID"
+                  (onValueChanged)="onLocationChanged($event)">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" reevaluate="true" message="Location is required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-select-box>
+              </div>
+            </div>
+
+            <div class="form-group" *ngIf="!isRoomIDSelect">
+              <label class="control-label col-sm-2">
+              </label>
+              <div class="col-sm-7">
+              <dx-text-box restrictHtmlTags hint="Location" restrictHtmlTags myNoSpaces maxLength="100" placeholder="Enter Location" [(value)]="workOrderDetail.LocationOther">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" reevaluate="true" message="Location is required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-text-box>
+              </div>
+
+            </div>
+            <!-- <div class="form-group">
+              <label class="control-label col-sm-2" for="Product">Product
+                <span class="cls-red">*</span>:</label>
+              <div class="col-sm-7" id="OptionID">
+              
+                      <dx-select-box hint="Product" #product [dataSource]="productsData" [(value)]="workOrderDetail.OptionID" key="MaterialID"
+                      [(value)]="workOrderDetail.OptionID" valueExpr="MaterialID" displayExpr="MaterialName" (onValueChanged)="onProductChanged($event)">
+                      <dx-validator>
+                        <dxi-validation-rule type="required" reevaluate="true" message="Product is required"></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-select-box>              
+            
+              </div>
+              <div class="col-sm-3" *ngIf="!isProductIDSelect">
+                  <dx-text-box hint="Product" myNoSpaces maxLength="100" placeholder="Enter Product"  [(value)]="workOrderDetail.ProductOther">
+                      <dx-validator>
+                        <dxi-validation-rule type="required" reevaluate="true" message="Product is required"></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+              </div>
+
+            </div> -->
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="Description">Description
+                <span class="cls-red">*</span>:</label>
+              <div class="col-sm-10" id="Notes">
+                <dx-text-area restrictHtmlTags hint="Description" maxLength="4000" [height]="107" [(value)]="workOrderDetail.Notes" placeholder="Enter Description">
+                  <dx-validator>
+                    <dxi-validation-rule type="required" message="Description is required"></dxi-validation-rule>
+                  </dx-validator>
+                </dx-text-area>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="fileuploader-container">
+                  <dx-file-uploader #fileuploader hint="Select Files" selectButtonText="Select Files" (onValueChanged)="onFileUploadChanged($event)"
+                    [showFileList]="false" [multiple]="true" [accept]="serviceRequestFileType" uploadMode="useButtons"></dx-file-uploader>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <dx-scroll-view>
+                <div class="col-md-12">
+                  <div *ngFor="let picture of workOrderDetail.ServiceRequestWorkorderAttachmentList">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" *ngIf="picture.IsMarkForDelete === false">
+                      <div class="img-center-icon warranty-image-grid">
+                        <div *ngIf="!picture.IsImage" align="center" class="embed-responsive embed-responsive-16by9">
+                          <video controls class="embed-responsive-item">
+                            <source type="video/mp4" [src]="domSanitizer.bypassSecurityTrustResourceUrl(picture.FileAccessUrl)">
+                          </video>
+                        </div>
+                        <img fixBrokenImage *ngIf="picture.IsImage" class="img-responsive" [src]="picture.FileAccessUrl">
+                        <dx-button hint="Remove this Image" class="mt8" (onClick)="onImageRemove(picture.UniqueAttachmentID)" icon="fa fa-trash"></dx-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </dx-scroll-view>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-10 col-sm-2 ">
+                <div class="pull-right">
+                  <dx-button hint="Submit" type="danger" class="" text="Submit" [useSubmitBehavior]="true"></dx-button>
+                  <dx-button hint="Cancel" type="" text="Cancel" (onClick)="onBackButtonClick()"></dx-button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

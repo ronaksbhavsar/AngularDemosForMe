@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="welcome_section">
+      <div class="box box-marron box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            <i class="fa fa-paint-brush"></i> Compare Colorsheets</h3>
+          <div class="box-tools pull-right">
+            <dx-button  hint="Back"  type="back" routerLink="/design"></dx-button>
+          </div>
+        </div>
+        <div class="box-body">
+          <dx-pivot-grid [allowSortingBySummary]="true" [allowFiltering]="true" [showBorders]="true" [allowSortingBySummary]="true"
+            [showColumnGrandTotals]="false" [showRowGrandTotals]="true" [showRowTotals]="false" [showColumnTotals]="true" [dataSource]="pivotGridDataSource">
+            <dxo-field-chooser [enabled]="false"></dxo-field-chooser>
+            <dxo-scrolling mode="virtual"></dxo-scrolling>
+          </dx-pivot-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

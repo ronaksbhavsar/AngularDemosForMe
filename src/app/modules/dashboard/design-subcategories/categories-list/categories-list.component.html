@@ -1,0 +1,8 @@
+<div class="list-container red-side-tab">
+  <dx-data-grid [rowAlternationEnabled]="true" #categoriesGrid [showBorders]="true" (onSelectionChanged)="onCategorySelection($event)" [hoverStateEnabled]="true"
+    keyExpr="SectionId" [showColumnHeaders]="false" [showColumnLines]="false" [showRowLines]="true" [dataSource]="categoriesList"
+    [(selectedRowKeys)]="selectedRows">
+    <dxo-selection mode="single" [allowSelectAll]="false"></dxo-selection>
+    <dxo-paging [enabled]="false"></dxo-paging>
+    <dxi-column dataField="SectionName"></dxi-column>
+  </dx-data-grid>

@@ -1,0 +1,105 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <ul class="sidebar-menu tree" data-widget="tree">
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/dashboard">
+          <i class="fa fa-dashboard"></i>
+          <br>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/schedule">
+          <i class="fa fa-calendar"></i>
+          <br>
+          <span>Schedule</span>
+        </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a routerLink="/homepictures">
+          <i class="fa fa-image"></i>
+          <br>
+          <span>Home Pictures</span>
+
+        </a>
+      </li>
+      <li *ngIf="isDesignEnabled" routerLinkActive="active">
+        <a routerLink="/design">
+          <i class="fa fa-paint-brush"></i>
+          <br>
+          <span>Design</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/contact">
+          <i class="fa fa-phone"></i>
+          <br>
+          <span>Contact</span>
+
+        </a>
+
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/messages/0">
+          <i class="fa fa-envelope"></i>
+          <br>
+          <span>Messages</span>
+
+        </a>
+
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/portfolio">
+          <i class="fa fa-file-text-o"></i>
+          <br>
+          <span>Documents</span>
+
+        </a>
+
+      </li>
+
+      <li *ngIf="!isDesignEnabled" routerLinkActive="active">
+        <a routerLink="/myhouse" myhouse>
+          <i class="fa fa-home"></i>
+          <br>
+          <span>My House</span>
+
+        </a>
+
+      </li>
+      <!-- <li routerLinkActive="active">
+        <a routerLink="/ServicesMaintenance">
+          <i class="fa fa-pencil-square-o"></i>
+          <br>
+          <span>S & M</span>
+
+        </a>
+
+      </li> -->
+      <li routerLinkActive="active">
+        <a routerLink="/ServicesMaintenance/0/ServiceRequest">
+          <i class="fa fa-cogs"></i>
+          <br>
+          <span>Warranty</span>
+        </a>
+
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/areainfo">
+          <i class="fa fa-info"></i>
+          <br>
+          <span>Community Info</span>
+        </a>
+      </li>
+      <li *ngIf="AuthUserObj && AuthUserObj.BuyerID === 0" routerLinkActive="active">
+        <a routerLink="/buyerUpload">
+          <i class="fa fa-upload"></i>
+          <br>
+          <span>Upload Interface</span>
+        </a>
+      </li>
+
+    </ul>
+  </section>
+</aside>

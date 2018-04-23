@@ -1,0 +1,36 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="span7">
+        <div class="widget stacked widget-table action-table">
+          <div class="widget-content">
+            <dx-data-grid [rowAlternationEnabled]="true" showBorders="true" showRowLines="true" showColumnLines="true" [dataSource]="maintenanceDetails">
+              <!-- <dxo-paging [pageSize]="5"></dxo-paging>
+              <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+              </dxo-pager> -->
+              <dxo-load-panel [enabled]="true"></dxo-load-panel>
+              <dxo-scrolling mode="virtual"></dxo-scrolling>
+              <dxi-column dataField="MaintenanceTaskName" caption="Task"></dxi-column>
+              <dxi-column dataField="IsCompleted" caption="Is Completed?" cellTemplate="completedTemplate"></dxi-column>
+              <div *dxTemplate="let data of 'completedTemplate'">
+                <div *ngIf="data.data.IsCompleted; then yesTemplate else noTemplate"></div>
+                <ng-template #yesTemplate>
+                  Yes
+                </ng-template>
+                <ng-template #noTemplate>
+                  No
+                </ng-template>
+              </div>
+              <dxi-column dataField="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
+              <div *dxTemplate="let data of 'cellTemplate'">
+                <dx-button [disabled]="data.data.IsCompleted" icon="fa fa-check fa-2x font-color" hint="Mark as Completed" (onClick)="onMarkAsCompletedButton(data.data.MaintenanceScheduleTaskID)">
+                </dx-button>
+              </div>
+
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

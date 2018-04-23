@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="welcome_section">
+            <div class="box box-marron box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <i class="fa fa-map-marker"></i> Community Info
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <div class="container message">
+
+                        <div class="tabbable-panel margin-tops4">
+
+                            <div class="row">
+                                <div class="col-md-10 col-lg-10 col-sm-12 col-xs-12">
+                                    <div id="map" class="full-map-width" #map></div>
+                                </div>
+                                <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="funkyradio">
+                                                <div class="funkyradio-info">
+                                                    <input type="radio" tabindex="1" name="radio" id="radio4" (click)="setType('restaurant')" [checked]="true" />
+                                                    <label tabindex="1" title="Restaurant" for="radio4">Restaurant</label>
+                                                </div>
+                                                <div class="funkyradio-info">
+                                                    <input type="radio" tabindex="2" name="radio" id="radio5" (click)="setType('store')" />
+                                                    <label tabindex="2" title="Store" for="radio5">Store</label>
+                                                </div>
+                                                <div class="funkyradio-info">
+                                                    <input type="radio" tabindex="3" name="radio" id="radio7" (click)="setType('shopping_mall')" />
+                                                    <label title="Shopping Mall" for="radio7">Shopping Mall</label>
+                                                </div>
+                                                <div class="funkyradio-info">
+                                                    <input type="radio" tabindex="4" name="radio" id="radio8" (click)="setType('park')" />
+                                                    <label title="Park" for="radio8">Park</label>
+                                                </div>
+                                                <div class="funkyradio-info">
+                                                    <input type="radio" tabindex="5" name="radio" id="radio9" (click)="setType('school')" />
+                                                    <label title="School" for="radio9">School</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

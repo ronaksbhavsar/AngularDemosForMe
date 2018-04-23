@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="welcome_section">
+            <div class="box box-marron box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <i class="fa fa-envelope"></i> Messages</h3>
+                </div>
+                <div class="box-body">
+                    <div class="message">
+                        <div class="tabbable-panel margin-tops4">
+                            <div class="tabbable-line custom-red-tab">
+                                <dx-tab-panel #tabPanel class="">
+                                    <dxi-item title="Announcements" icon="fa fa-bullhorn" [template]="'announcementTemplate'">
+                                    </dxi-item>
+                                    <div *dxTemplate="let item of 'announcementTemplate'" class="tabpanel-item margin-tops">
+                                        <app-annoucements></app-annoucements>
+                                    </div>
+                                    <dxi-item title="Messages" icon="fa fa-envelope-o" [template]="'messageTemplate'">
+                                    </dxi-item>
+                                    <div *dxTemplate="let item of 'messageTemplate'" class="tabpanel-item margin-tops">
+                                        <app-message></app-message>
+                                    </div>
+                                </dx-tab-panel>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

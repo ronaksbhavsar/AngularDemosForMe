@@ -1,0 +1,712 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="welcome_section">
+            <div class="box box-marron box-solid">
+                <div class="box-header with-border">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <h3 class="box-title">
+                            <i class="fa fa-image"></i> My Profile
+                        </h3>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12 home-pic-btn">
+                                <dx-button type="danger" class="pull-right mt8" (onClick)="onChangePassword()" text="Change Password">
+                                </dx-button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form (ngSubmit)="SaveProfile(profileForm)" #profileForm="ngForm" novalidate>
+                                <!-- left column -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="title">
+                                            <label for="exampleInputEmail1">
+                                                Title
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-select-box hint="Title" [dataSource]="TitleList" [(value)]="profile.Title" displayExpr="Name" valueExpr="ID">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Title is required"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                    <!-- right column -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="LastName">
+                                            <label for="exampleInputEmail1">
+                                                Last Name
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-text-box hint=" Last Name" [(value)]="profile.LastName" placeholder="Enter Last Name" maxLength="25">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Last Name is required"></dxi-validation-rule>
+                                                    <dxi-validation-rule type="stringLength" [min]="2" message="Last Name must have at least 2 characters."></dxi-validation-rule>
+                                                    <dxi-validation-rule type="pattern" pattern="^[a-zA-Z]+$" message="Do not use digits in the Last name"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="Organization">
+                                            <label for="exampleInputEmail1">Organization</label>
+                                            <dx-select-box hint="Organization" [dataSource]="OrganizationList" [(value)]="profile.Title" displayExpr="Name" valueExpr="ID">
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="FirstName">
+                                            <label for="exampleInputEmail1">
+                                                First Name
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-text-box hint=" First Name" [(value)]="profile.FirstName" placeholder="Enter First Name" maxLength="25">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="First Name is required"></dxi-validation-rule>
+                                                    <dxi-validation-rule type="stringLength" [min]="2" message="First Name must have at least 2 characters."></dxi-validation-rule>
+                                                    <dxi-validation-rule type="pattern" pattern="^[a-zA-Z]+$" message="Do not use digits in the First name"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="Phone">
+                                            <label for="exampleInputEmail1">
+                                                Phone
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-text-box hint="Phone" onlyNumbers [(value)]="profile.Phone" placeholder="Enter Phone No" maxLength="10">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Phone is required"></dxi-validation-rule>
+                                                    <!-- <dxi-validation-rule type="numeric" reevaluate="true" message="Phone must be numeric"></dxi-validation-rule> -->
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="MiddleName">
+                                            <label for="exampleInputEmail1">Middle Name</label>
+                                            <dx-text-box hint="Middle Name" [(value)]="profile.MiddleName" placeholder="Enter Middle Name" maxLength="25">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="pattern" pattern="^[a-zA-Z]+$" message="Do not use digits in the Middle name"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="EmailAddress">
+                                            <label for="exampleInputEmail1">
+                                                Email Address
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-text-box hint="Email Address" [(value)]="profile.EmailAddress" placeholder="Enter Email Address" maxLength="50">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Email Address is required"></dxi-validation-rule>
+                                                    <dxi-validation-rule type="email" reevaluate="true" message="Email Address is not valid."></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="Suffix">
+                                            <label for="exampleInputEmail1">
+                                                Suffix
+                                            </label>
+                                            <dx-text-box hint="Suffix" [(value)]="profile.Suffix" placeholder="Enter Suffix" maxLength="10">
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h3>
+                                            Primary Address
+                                        </h3>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <h3>
+                                            Secondary Address
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">
+                                                Address 1
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-text-box hint="Primary Address" id="PrimaryAddress1" [(value)]="profile.PrimaryAddress1" placeholder="Enter Primary Address"
+                                                maxLength="35">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Primary Address is required"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">
+                                                Address 2
+                                            </label>
+                                            <dx-text-box hint="Secondary Address" id="SecondaryAddress1" [(value)]="profile.SecondaryAddress1" placeholder="Enter Secondary Address"
+                                                maxLength="35">
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <dx-text-box [(value)]="profile.PrimaryAddress2" maxLength="35"></dx-text-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <dx-text-box [(value)]="profile.SecondaryAddress2" maxLength="35"></dx-text-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="PrimaryCityID">
+                                            <label for="exampleInputEmail1">
+                                                City
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-select-box hint="Primary City" [dataSource]="CityList" [(value)]="profile.PrimaryCityID" displayExpr="Name" valueExpr="ID">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Primary City is required"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="SecondaryCityID">
+                                            <label for="exampleInputEmail1">
+                                                City
+                                            </label>
+                                            <dx-select-box hint="Secondary City" [dataSource]="CityList" [(value)]="profile.SecondaryCityID" displayExpr="Name" valueExpr="ID">
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="PrimaryZipCode">
+                                            <label for="exampleInputEmail1">
+                                                Zip
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-text-box hint=" Primary Zip" [(value)]="profile.PrimaryZipCode" placeholder="Enter Primary Zip" maxLength="10">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Primary Zip is required"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="SecondaryZipcode">
+                                            <label for="exampleInputEmail1">
+                                                Zip
+                                            </label>
+                                            <dx-text-box hint="Secondary Zip" [(value)]="profile.SecondaryZipCode" placeholder="Enter Secondary Zip" maxLength="10">
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="PrimaryStateID">
+                                            <label for="exampleInputEmail1">
+                                                State
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-select-box hint="Primary State" [dataSource]="StateList" [(value)]="profile.PrimaryStateID" displayExpr="Name" valueExpr="ID"
+                                                (onValueChanged)="GetCityByStateId(profile.PrimaryStateID)">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Primary State is required"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="SecondaryStateID">
+                                            <label for="exampleInputEmail1">
+                                                State
+                                            </label>
+                                            <dx-select-box hint=" Secondary State" [dataSource]="StateList" [(value)]="profile.SecondaryStateID" displayExpr="Name" valueExpr="ID"
+                                                (onValueChanged)="GetCityByStateId(profile.SecondaryStateID)">
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="PrimaryCountryID">
+                                            <label for="exampleInputEmail1">
+                                                Country
+                                            </label>
+                                            <dx-select-box hint="Primary Country" [dataSource]="CountryList" [(value)]="profile.PrimaryCountryID" displayExpr="Name"
+                                                valueExpr="ID" (onValueChanged)="GetStateByCountryId(profile.PrimaryCountryID)">
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="SecondaryCountryID">
+                                            <label for="exampleInputEmail1">
+                                                Country
+                                            </label>
+                                            <dx-select-box hint="Secondary Country" [dataSource]="CountryList" [(value)]="profile.SecondaryCountryID" displayExpr="Name"
+                                                valueExpr="ID" (onValueChanged)="GetStateByCountryId(profile.SecondaryCountryID)">
+                                            </dx-select-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-4 pull-left pad-left-0 no-padding">
+                                                <label for="exampleInputEmail1">Contact Preference</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="checkbox-inline">
+                                                    <input hint="Call" type="checkbox" id="iscall" name="iscall" #iscall="ngModel" [(ngModel)]="profile.IsCall">Call
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input hint="Text" type="checkbox" id="istext" name="istext" #istext="ngModel" [(ngModel)]="profile.IsText">Text
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input hint="Email" type="checkbox" id="isemail" name="isemail" #isemail="ngModel" [(ngModel)]="profile.IsEmail">Email
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="clearfix"></div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h3>
+                                            Additional Contact Info
+                                            <!-- <small>Optional description</small>-->
+                                        </h3>
+                                    </div>
+                                    <div class="col-lg-6 text-right pad-right-15">
+                                        <!-- <button type="button" class="btn btn-flat btn btn-primary" data-toggle="modal" (click)="AddEditContactInfo('')">Add New Contact Info</button> -->
+                                        <dx-button type="danger" class="pull-right mt8" (onClick)="AddEditContactInfo('')" text="Add New Contact Info.">
+                                        </dx-button>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <dx-data-grid [rowAlternationEnabled]="true" id="gridContainer" [dataSource]="ContactInfoModelList">
+                                            <dxo-paging [pageSize]="5"></dxo-paging>
+                                            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                                            </dxo-pager>
+                                            <dxi-column dataField="Type" class="cls"></dxi-column>
+                                            <dxi-column dataField="ContactInfo" title="Date"></dxi-column>
+                                            <dxi-column dataField="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
+                                            <div *dxTemplate="let data of 'cellTemplate'">
+                                                <dx-button icon="fa fa-pencil-square-o fa-2x" (onClick)="AddEditContactInfo(data.data)"> </dx-button>
+                                                <!-- <button type="button" icon="fa fa-pencil-square-o fa-2x" (click)="AddEditContactInfo(data.data)"> Edit</button> -->
+                                            </div>
+                                        </dx-data-grid>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h3>
+                                            Add Co-Buyer Info.
+                                            <!-- <small>Optional description</small>-->
+                                        </h3>
+                                    </div>
+                                    <div class="col-lg-6 text-right pad-right-15">
+                                        <!-- <button type="button" class="btn btn-flat btn btn-primary" data-toggle="modal" (click)="AddEditCoBuyerInfo('')">Add New Co-Buyer Info.</button> -->
+                                        <dx-button type="danger" class="pull-right mt8" (onClick)="AddEditCoBuyerInfo('')" text="Add New Co-Buyer Info.">
+                                        </dx-button>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12 no-padding">
+                                            <dx-data-grid [rowAlternationEnabled]="true" id="gridContainer" [dataSource]="CoBuyerInfoModelList">
+                                                <dxo-paging [pageSize]="5"></dxo-paging>
+                                                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                                                </dxo-pager>
+                                                <dxi-column dataField="FirstName" class="cls"></dxi-column>
+                                                <dxi-column dataField="LastName" title="Date"></dxi-column>
+                                                <dxi-column dataField="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
+                                                <div *dxTemplate="let data of 'cellTemplate'">
+                                                    <dx-button icon="fa fa-pencil-square-o fa-2x" (onClick)="AddEditCoBuyerInfo(data)"> </dx-button>
+                                                    <dx-button icon="fa fa-trash fa-2x" (onClick)="deleteCobuyerInfo(data.data.uniqueId)"> </dx-button>
+                                                </div>
+                                            </dx-data-grid>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 pull-left pad-left-0">
+                                        <dx-button hint="Save" type="danger" class="" text="Save" [useSubmitBehavior]="true"></dx-button>
+                                        <dx-button hint="Cancel" type="" text="Cancel" (onClick)="onCancel()"></dx-button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- nav-tabs-custom -->
+                    <!-- /.box -->
+                </div>
+                <dx-popup (onTitleRendered)="onShown($event)" class="popup" [width]="350" [height]="250" [showTitle]="true" title="Add New Contact Info." [dragEnabled]="false"
+                    [closeOnOutsideClick]="true" [(visible)]="contactInfoPopupVisible">
+                    <div *dxTemplate="let data of 'content'">
+                        <div class="modal-body">
+                            <form (ngSubmit)="SaveContactInfo(contactForm)" #contactForm="ngForm" novalidate>
+                                <div class="row">
+                                    <input type="hidden" name="buyeradditionalcontactID" id="buyeradditionalcontactID" [(ngModel)]="contactInfoModel.BuyerAdditionalContactID"
+                                        #buyeradditionalcontactID="ngModel" />
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect1">
+                                                Type
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <select class="form-control" id="type" [(ngModel)]="contactInfoModel.CRMContactTypeLookupID" name="type" #type="ngModel"
+                                                required>
+                                                <option *ngFor="let dept of AdditonalContactTypeList" [value]="dept.ID">{{dept.Name}}</option>
+                                            </select>
+                                            <p *ngIf="type.invalid && contactsubmitted" class="cls-red">
+                                                <span *ngIf="type.errors.required"> Type is required.</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>
+                                                Contact Info
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="contact" #contact="ngModel" name="contact" [(ngModel)]="contactInfoModel.ContactInfo"
+                                                placeholder="Enter Contact Info" required>
+                                            <p *ngIf="contact.invalid && contactsubmitted" class="cls-red">
+                                                <span *ngIf="contact.errors.required"> Contact Info is required.</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+                                            <button type="submit" class="btn btn-danger">Save</button>
+                                            <!-- <dx-button type="submit" class="btn btn-danger" text="Submit"></dx-button> -->
+                                            <button type="button" class="btn btn-default" text="Close" data-dismiss="modal" (click)="ClosePopup()">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dx-popup>
+                <dx-popup (onTitleRendered)="onShown($event)" class="popup" [width]="400" [height]="500" [showTitle]="true" title="Change Password" [dragEnabled]="false" [closeOnOutsideClick]="true"
+                    [(visible)]="changePasswordPopupVisible">
+                    <div *dxTemplate="let data of 'content'">
+                        <div class="modal-body">
+                            <form (ngSubmit)="onSaveChangePassord(changePasswordForm)" #changePasswordForm="ngForm" novalidate>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="cpEmail">
+                                            <label>
+                                                Email
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-text-box hint="Email" [(value)]="changePassword.EmailId" disabled="true" placeholder="Enter Email">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Email is required"></dxi-validation-rule>
+                                                    <dxi-validation-rule type="email" reevaluate="true" message="Email is not valid"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="cpOldPassword">
+                                            <label>
+                                                Current Password
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-text-box hint="Current Password" mode="password" [(value)]="changePassword.OldPassword" placeholder="Enter Current Password">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Current Password is required"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="cpNewPassword">
+                                            <label>
+                                                New Password
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-text-box hint="New Password" mode="password" [(value)]="changePassword.NewPassword" placeholder="Enter New Password">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="New Password is required"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="cpConfirmPassword">
+                                            <label>
+                                                Confirm Password
+                                                <span class="cls-red">*</span>
+                                            </label>
+                                            <dx-text-box hint="Confirm Password" mode="password" [(value)]="changePassword.ConfirmPassword" placeholder="Enter Confirm Password">
+                                                <dx-validator>
+                                                    <dxi-validation-rule type="required" reevaluate="true" message="Confirm Password is required"></dxi-validation-rule>
+                                                    <dxi-validation-rule type="compare" [comparisonTarget]="passwordComparison" message="New Password and Confirm Password do not match"></dxi-validation-rule>
+                                                </dx-validator>
+                                            </dx-text-box>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+                                            <dx-button type="danger" class="" text="Save" [useSubmitBehavior]="true"></dx-button>
+                                            <dx-button type="" text="Cancel" (onClick)="ClosePopup()"></dx-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dx-popup>
+            </div>
+        </div>
+    </div>
+</div>
+<dx-popup (onTitleRendered)="onShown($event)" class="popup" [showTitle]="true" title="Add New Co Buyer Info" [dragEnabled]="false" [closeOnOutsideClick]="true"
+    [(visible)]="CoBuyerInfoPopupVisible">
+    <div *dxTemplate="let data of 'content'">
+        <dx-scroll-view [height]="500" direction="both">
+            <div class="modal-body">
+                <form (ngSubmit)="SaveCoBuyerInfo(cobuyerForm)" #cobuyerForm="ngForm" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Title
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <select class="form-control" id="title" title="Title" [(ngModel)]="CoBuyerInfoModel.Title" name="title" #title="ngModel"
+                                    required>
+                                    <option *ngFor="let dept of TitleList" [value]="dept.ID">{{dept.Name}}</option>
+                                </select>
+                                <p *ngIf="title.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="title.errors.required">Title is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Last Name
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <input type="text" id="lastname" title="Last Name" name="lastname" [(ngModel)]="CoBuyerInfoModel.LastName" #lastname="ngModel"
+                                    class="form-control" placeholder="Last Name" required maxlength="25">
+                                <p *ngIf="lastname.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="lastname.errors.required">Last Name is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">First Name
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <input type="text" title="First Name" class="form-control" id="firstname" name="firstname" [(ngModel)]="CoBuyerInfoModel.FirstName"
+                                    #firstname="ngModel" placeholder="First Name" required maxlength="35">
+                                <p *ngIf="firstname.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="firstname.errors.required">First Name is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Middle Name</label>
+                                <input type="text" title="Middle Name" class="form-control" id="middlename" name="middlename" [(ngModel)]="CoBuyerInfoModel.MiddleName"
+                                    #middlename="ngModel" placeholder="Middle Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Suffix
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <input type="text" title="Suffix" class="form-control" id="suffix" name="suffix" [(ngModel)]="CoBuyerInfoModel.Suffix" #suffix="ngModel"
+                                    placeholder="Suffix" required>
+                                <p *ngIf="suffix.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="suffix.errors.required">Suffix is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Address1
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <input type="text" title="Address1" class="form-control" id="address1" name="address1" [(ngModel)]="CoBuyerInfoModel.Address1"
+                                    #address1="ngModel" placeholder="Address1 " required>
+                                <p *ngIf="address1.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="address1.errors.required">Address1 is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Address2
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <input type="text" title="Address2" class="form-control" id="address2" name="address2" [(ngModel)]="CoBuyerInfoModel.Address2"
+                                    #address2="ngModel" placeholder="Address2 " required>
+                                <p *ngIf="address2.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="address2.errors.required">Address2 is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">City
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <select class="form-control" id="city" title="City" [(ngModel)]="CoBuyerInfoModel.CityID" name="city" #city="ngModel" required>
+                                    <option *ngFor="let dept of CityList" [value]="dept.ID">{{dept.Name}}</option>
+                                </select>
+                                <p *ngIf="city.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="city.errors.required">City is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Zip
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <input type="text" class="form-control" title="Zip" id="zip" name="zip" [(ngModel)]="CoBuyerInfoModel.ZipCode" #zip="ngModel"
+                                    placeholder="Zip " required>
+                                <p *ngIf="zip.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="zip.errors.required">Zip is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">State
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <select class="form-control" id="state" title="State" [(ngModel)]="CoBuyerInfoModel.StateId" name="state" #state="ngModel"
+                                    (change)="GetCityByStateId(CoBuyerInfoModel.StateId)" required>
+                                    <option *ngFor="let dept of StateList" [value]="dept.ID">{{dept.Name}}</option>
+                                </select>
+                                <p *ngIf="state.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="state.errors.required">State is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Country
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <select class="form-control" id="countryid" title="Country" [(ngModel)]="CoBuyerInfoModel.CountryId" name="countryid" #countryid="ngModel"
+                                    (change)="GetStateByCountryId(CoBuyerInfoModel.CountryId)" required>
+                                    <option *ngFor="let dept of CountryList" [value]="dept.ID">{{dept.Name}}</option>
+                                </select>
+                                <p *ngIf="countryid.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="countryid.errors.required">Country is required.</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Phone </label>
+                                <input type="text" title="Phone" class="form-control" id="phone" name="phone" [(ngModel)]="CoBuyerInfoModel.Phone" #phone="ngModel"
+                                    placeholder="Phone " maxlength="10">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email
+                                    <span class="cls-red">*</span>
+                                </label>
+                                <input type="email" title="Email" class="form-control" id="email" name="email" [(ngModel)]="CoBuyerInfoModel.EmailAddress"
+                                    #email="ngModel" placeholder="Email ">
+                                <p *ngIf="email.invalid && cobuyersubmitted" class="cls-red">
+                                    <span *ngIf="email.errors.required">Email is required.</span>
+                                    <span *ngIf="email.errors.email">please enter promper Email.</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Contact Preference</label>
+                                <br>
+                                <label class="checkbox-inline">
+                                    <input title="Is Call" type="checkbox" id="iscall" name="iscall" #iscall="ngModel" [(ngModel)]="CoBuyerInfoModel.IsCall">Call
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input title="Is Text" type="checkbox" id="istext" name="istext" #istext="ngModel" [(ngModel)]="CoBuyerInfoModel.IsText">Text
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input title="Is Email" type="checkbox" id="isemail" name="isemail" #isemail="ngModel" [(ngModel)]="CoBuyerInfoModel.IsEmail">Email
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 no-padding">
+                                <button type="submit" class="btn btn-danger">Save</button>
+                                <!-- <dx-button type="submit" class="btn btn-danger" text="Submit"></dx-button> -->
+                                <button type="button" class="btn btn-default" text="Close" data-dismiss="modal" (click)="ClosePopup()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </dx-scroll-view>
+
+    </div>
+</dx-popup>

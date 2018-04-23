@@ -1,0 +1,31 @@
+.address_book{margin-top: 20px;}
+.address_book .box {
+    display: table;
+    height: 100%;
+    margin-bottom: 0;
+    border-top: none;
+}
+
+.mt20{
+margin-top: 20px;
+}
+
+.userbox ul li .uinfo {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    color: #951623;
+}
+
+.userbox {
+    border: 1px solid #ccc;
+    padding: 15px;
+}
+
+.no-data-contact {
+    font-weight: 500;
+    color: #929292;
+    padding-top: 2%;
+    text-align: center;
+    word-wrap: normal;
+}

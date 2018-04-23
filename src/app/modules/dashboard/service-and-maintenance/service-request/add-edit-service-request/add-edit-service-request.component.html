@@ -1,0 +1,273 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="welcome_section">
+            <div class="box box-marron box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <i class="fa fa-pencil-square-o"></i> {{serviceRequestTitle}}
+                    </h3>
+                </div>
+                <div class="box-body">
+                    <form (ngSubmit)="onSaveServiceRequest()" #serviceRequestForm="ngForm" novalidate>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <dx-button hint="Add New Issue" class="pull-right mt8" type="danger" (onClick)="onAddEditWorkOrder('Create')" text="Add New Issue">
+                                </dx-button>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                            <div class="row">
+                                <dx-data-grid [rowAlternationEnabled]="true" class="mtop8" showBorders="true" showRowLines="true" #workOrderDataGrid [dataSource]="serviceRequestWorkorderDetails"
+                                    [masterDetail]="{ enabled: true, template: 'detail' }" showColumnLines="true" keyExpr="UniqueWorkOrderID">
+                                    <dxi-column dataField="LocationName" caption="Location">
+                                    </dxi-column>
+                                    <dxi-column dataField="IsMarkForDelete" [visible]="false">
+                                    </dxi-column>
+                                    <dxi-column dataField="Notes" caption="Description"></dxi-column>
+                                    <dxi-column dataField="Action" [allowFiltering]="false" [allowSorting]="false" cellTemplate="cellTemplate"></dxi-column>
+                                    <div *dxTemplate="let data of 'cellTemplate'">
+                                        <dx-button icon="fa fa-pencil-square-o fa-2x font-color" hint="Edit Issue" (onClick)="onAddEditWorkOrder(data.data.UniqueWorkOrderID)">
+                                        </dx-button>
+                                        <dx-button icon="fa fa-trash-o fa-2x font-color" hint="Remove Issue" (onClick)="onDeleteRow($event,data.data)"> </dx-button>
+                                    </div>
+                                    <div *dxTemplate="let workorder of 'detail'">
+                                        <dx-data-grid [rowAlternationEnabled]="true" showRowLines="true" showColumnLines="true" showBorders="true" rowTemplate="rowTemplateName"
+                                            [dataSource]="workorder.data.ServiceRequestWorkorderAttachmentList" [showBorders]="true"
+                                            [columnAutoWidth]="true">
+                                            <dxi-column dataField="FileAccessUrl" caption="Images"></dxi-column>
+                                            <tbody *dxTemplate="let imageData of 'rowTemplateName'">
+                                                <tr *ngIf="imageData.data.IsMarkForDelete === false" class="dx-row main-row">
+                                                    <td>
+                                                        <a [href]="imageData.data.FileAccessUrl" target="_blank">
+                                                            {{imageData.data.ImageDisplayName}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </dx-data-grid>
+                                    </div>
+                                </dx-data-grid>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt8">
+                            <div class="row">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h1 class="panel-title">
+                                            Availability for Service:
+                                        </h1>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12 mt8">
+                                            <div class="col-lg-6">
+                                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-check-box [(value)]="serviceRequestAvailability.IsMon" text="Mon"></dx-check-box>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Monday Start" [disabled]="!serviceRequestAvailability.IsMon" validationGroup="Mon" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.MonStart"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorMonStart>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackMonStart" reevaluate="true" message="Start time must be less than End time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                                                    to
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Monday End" [disabled]="!serviceRequestAvailability.IsMon" validationGroup="Mon" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.MonEnd"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorMonEnd>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackMonEnd" reevaluate="true" message="End time must be greater than Start time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-offset-6"></div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12 mt8">
+                                            <div class="col-lg-6">
+                                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-check-box [(value)]="serviceRequestAvailability.IsTue" text="Tue"></dx-check-box>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Tuesday Start" [disabled]="!serviceRequestAvailability.IsTue" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.TueStart"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorTueStart>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackTueStart" reevaluate="true" message="Start time must be less than End time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                                                    to
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Tuesday End" [disabled]="!serviceRequestAvailability.IsTue" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.TueEnd"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorTueEnd>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackTueEnd" reevaluate="true" message="End time must be greater than Start time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-offset-6"></div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12 mt8">
+                                            <div class="col-lg-6">
+                                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-check-box [(value)]="serviceRequestAvailability.IsWed" text="Wed"></dx-check-box>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Wednesday Start" [disabled]="!serviceRequestAvailability.IsWed" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.WedStart"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorWedStart>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackWedStart" reevaluate="true" message="Start time must be less than End time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                                                    to
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Wednesday End" [disabled]="!serviceRequestAvailability.IsWed" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.WedEnd"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorWedEnd>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackWedEnd" reevaluate="true" message="End time must be greater than Start time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-offset-6"></div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12 mt8">
+                                            <div class="col-lg-6">
+                                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-check-box [(value)]="serviceRequestAvailability.IsThu" text="Thu"></dx-check-box>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Thursday Start" [disabled]="!serviceRequestAvailability.IsThu" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.ThuStart"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorThuStart>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackThuStart" reevaluate="true" message="Start time must be less than End time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                                                    to
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Thursday End" [disabled]="!serviceRequestAvailability.IsThu" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.ThuEnd"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorThuEnd>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackThuEnd" reevaluate="true" message="End time must be greater than Start time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-offset-6"></div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12 mt8">
+                                            <div class="col-lg-6">
+                                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-check-box [(value)]="serviceRequestAvailability.IsFri" text="Fri"></dx-check-box>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Friday Start" [disabled]="!serviceRequestAvailability.IsFri" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.FriStart"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorFriStart>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackFriStart" reevaluate="true" message="Start time must be less than End time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                                                    to
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Friday End" [disabled]="!serviceRequestAvailability.IsFri" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.FriEnd"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorFriEnd>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackFriEnd" reevaluate="true" message="End time must be greater than Start time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-offset-6"></div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12 mt8">
+                                            <div class="col-lg-6">
+                                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-check-box [(value)]="serviceRequestAvailability.IsSat" text="Sat"></dx-check-box>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Saturday Start" [disabled]="!serviceRequestAvailability.IsSat" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.SatStart"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorSatStart>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackSatStart" reevaluate="true" message="Start time must be less than End time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                                                    to
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Saturday End" [disabled]="!serviceRequestAvailability.IsSat" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.SatEnd"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorSatEnd>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackSatEnd" reevaluate="true" message="End time must be greater than Start time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-offset-6"></div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12 mt8">
+                                            <div class="col-lg-6">
+                                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-check-box [(value)]="serviceRequestAvailability.IsSun" text="Sun"></dx-check-box>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Sunday Start" [disabled]="!serviceRequestAvailability.IsSun" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.SunStart"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorSunStart>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackSunStart" reevaluate="true" message="Start time must be less than End time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                                <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                                                    to
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                    <dx-date-box hint="Sunday End" [disabled]="!serviceRequestAvailability.IsSun" displayFormat="HH:mm" [(value)]="serviceRequestAvailability.SunEnd"
+                                                        type="time">
+                                                        <dx-validator #dxValidatorSunEnd>
+                                                            <dxi-validation-rule type="custom" [validationCallback]="onValidationCallbackSunEnd" reevaluate="true" message="End time must be greater than Start time"></dxi-validation-rule>
+                                                        </dx-validator>
+                                                    </dx-date-box>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-offset-6"></div>
+                                        </div>
+                                        <div class="col-xs-12 mt8">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="form-group" id="OtherAvailability">
+                                                    <label for="Description">Other availability:</label>
+                                                    <dx-text-box restrictHtmlTags hint="Other Availability" [(value)]="serviceRequestAvailability.OtherAvailability" maxLength="50"
+                                                        placeholder="Enter Other availability"></dx-text-box>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-offset-6"></div>
+                                        </div>
+                                        <div class="mr0 pull-right">
+                                            <dx-button hint="Submit" type="danger" class="btn btn-marron btn-md btn-custom" text="Submit" [useSubmitBehavior]="true"></dx-button>
+                                            <dx-button hint="Cancel" type="" class="btn btn-default btn-md btn-custom" text="Cancel" (onClick)="onBackButtonClick()"></dx-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

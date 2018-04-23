@@ -1,0 +1,10 @@
+.widget-content .table tr th {
+    background-color: #951623;
+    color: #fff;
+}
+.table-bordered {
+    border: 1px solid #ddd;
+}
+.nav-tabs[_ngcontent-c14] {
+    margin-bottom: 1em;
+}

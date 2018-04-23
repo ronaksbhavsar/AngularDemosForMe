@@ -1,0 +1,129 @@
+/* slider css */
+
+.widget-container {
+    margin-right: 240px;
+}
+
+#gallery {
+    margin: auto;
+    max-width: 450px;
+}
+
+.options {
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 180px;
+    top: 0;
+    background-color: rgba(191, 191, 191, 0.15);
+}
+
+.caption {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.option {
+    margin-top: 10px;
+}
+
+button.sb-twitter {
+    background-color: rgb(0, 172, 238);
+    border: 0px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 17px;
+}
+
+button.sb-facebook {
+    background-color: rgb(59, 89, 152);
+    border: 0px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 17px;
+}
+
+button.sb-pinterest {
+    background-color: rgb(189, 9, 29);
+    border: 0px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 17px;
+}
+
+button.sb-telegram {
+    color: rgb(0, 136, 204);
+    background: #ccc;
+    border: 0px;
+    border-radius: 4px;
+    font-size: 17px;
+}
+
+.sharebtn {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.home-pic-bottom {
+    margin-bottom: 20px;
+}
+
+/* @media only screen and (max-width: 767px) {
+    .sharebtn {
+        position: absolute;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 5px;
+        padding: 0px;
+    }
+} */
+
+.home-pic-bottom {
+    margin-bottom: 20px;
+}
+
+.no-data-home-pic {
+    font-weight: 500;
+    color: #929292;
+    padding-top: 2%;
+    text-align: center;
+    word-wrap: normal;
+}
+
+.leftRs {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 0;
+    border-radius: 0;
+    left: 0;
+    color: white;
+    font-size: 12px;
+}
+
+.rightRs {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 0;
+    border-radius: 0;
+    right: 0;
+    color: white;
+    font-size: 12px;
+}
+
+.btn-marron {
+    margin-right: 25px;
+}

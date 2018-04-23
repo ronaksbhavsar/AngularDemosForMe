@@ -1,0 +1,26 @@
+.fileuploader-container {
+    border: 1px solid #d3d3d3;
+    margin: 5px 5px 0 5px;
+}
+
+.dx-gallery-item img {
+    height: 250px;
+    width: 450px;
+    max-width: 100%;
+    max-height: 250px;
+}
+
+.img-center-icon {
+    text-align: center;
+}
+
+.button-alignment {
+    float: right;
+    margin-right: 0 !important;
+}
+
+.left-alignment {
+    float: right;
+    padding-left: 3px;
+    margin-right: 0 !important;
+}

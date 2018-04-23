@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="welcome_section">
+      <div class="box box-marron box-solid">
+        <div class="box-header with-border">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 nospace">
+            <h3 class="box-title">
+              <i class="fa fa-image"></i> Home Pictures</h3>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <span class="pull-right home-pic-btn" *ngIf="this._album.length>0">
+              <dx-button type="danger" hint="Click to Slide Show" text="Slide Show" (onClick)="open(0)"></dx-button>
+            </span>
+          </div>
+        </div>
+
+        <div class="box-body">
+          <dashboard-home-pictures-gallery [isDashboard]='false' (updateImageList)="updateImage($event)"></dashboard-home-pictures-gallery>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

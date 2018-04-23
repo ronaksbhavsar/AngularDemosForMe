@@ -1,0 +1,76 @@
+<dx-data-grid id="gridContainer" [wordWrapEnabled]="true" [rowAlternationEnabled]="true" [dataSource]="myHouseDetailList"
+    [showRowLines]="true" [showBorders]="true" [showColumnLines]="true">
+    <dxo-load-panel [enabled]="true"></dxo-load-panel>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxi-column dataField="SectionDtlName" width="150px" caption="Section Detail"></dxi-column>
+    <!-- <dxi-column dataField="FileAccessUrl" caption="Image" cellTemplate="urlTemplate"></dxi-column>
+    <div *dxTemplate="let data of 'urlTemplate'">
+        <img fixBrokenImage class="media-object" width="120" height="120" src="{{data.data.FileAccessUrl}}" alt="{{data.data.OptionDesc}}">
+    </div> -->
+    <dxi-column dataField="OptionDesc" caption="Standard/Upgrades" cellTemplate="standardUpgradesTemplate"></dxi-column>
+    <div *dxTemplate="let data of 'standardUpgradesTemplate'">
+        <div class="userbox">
+            <div class="media">
+                <div class="media-left">
+                    <div *ngIf="data.data.FileAccessUrl;then catImageContent else noImageContent"></div>
+                    <ng-template #catImageContent>
+                        <img fixBrokenImage class="media-object" width="120" height="120" src="{{data.data.FileAccessUrl}}" alt="{{data.data.OptionDesc}}">
+                    </ng-template>
+                    <ng-template #noImageContent>
+                        <img fixBrokenImage class="media-object" width="120" height="120" src="assets/img/NoImage.jpg">
+                    </ng-template>
+                </div>
+                <div class="media-body">
+                    <table border="0" cellpadding="5" cellspacing="5" class="table-grid-design">
+                        <tr valign="top">
+                            <td>
+                                <strong>Material</strong>
+                            </td>
+                            <td>
+                                <div *ngIf="data.data.OptionDesc;then upgradeContent else noUpgradeContent"></div>
+                                <ng-template #upgradeContent>
+                                    {{data.data.OptionDesc}}</ng-template>
+                                <ng-template #noUpgradeContent>
+                                    No Upgrades Selected
+                                </ng-template>
+                            </td>
+
+                        </tr>
+                        <tr valign="top">
+                            <td valign="top">
+                                <strong>Quantity</strong>
+                            </td>
+                            <td>
+                                {{data.data.Quantity}}
+                            </td>
+
+                        </tr>
+                        <tr valign="top">
+                            <td>
+                                <strong>Price</strong>
+                            </td>
+                            <td>{{data.data.Price}}</td>
+                        </tr>
+                    </table>
+                    <!-- <ul>
+                        <li>
+                            <div *ngIf="data.data.OptionDesc;then upgradeContent else noUpgradeContent"></div>
+                            <ng-template #upgradeContent>
+                                <b>Material</b> : {{data.data.OptionDesc}}</ng-template>
+                            <ng-template #noUpgradeContent>
+                                <b>Material</b> : No Upgrades Selected</ng-template>
+                        </li>
+                        <li>
+                            <b>Quantity</b>: {{data.data.Quantity}}
+                        </li>
+                        <li>
+                            <b>Price</b> : {{data.data.Price}}
+                        </li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <dxi-column dataField="Quantity" caption="Qty" [hidingPriority]="0" width="100px"></dxi-column>
+    <dxi-column dataField="Price" caption="Price" [hidingPriority]="1" width="100px"></dxi-column> -->
+</dx-data-grid>

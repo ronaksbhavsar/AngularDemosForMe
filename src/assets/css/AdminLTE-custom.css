@@ -1,0 +1,110 @@
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>p {
+    z-index: 5;
+    color: #fff;
+    font-size: 17px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>img {
+    border: 2px solid #9c9c9c;
+}
+
+.psh_header .navbar-nav>li.dropdown.user.user-menu a {
+    color: #fff;
+    background: #951623;
+}
+
+.dx-button-has-text .dx-button-content {
+    padding: 4px 15px 4px;
+    /* background: #951623; */
+    border: none;
+}
+
+.skin-psh .main-header .navbar .nav .open>a {
+    background: #d5d5d5;
+}
+
+.user-menu small {
+    color: #fff;
+}
+
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header {
+    padding: 27px;
+}
+
+.box-header.with-border {
+    border-bottom: 1px solid #aeaeae;
+    background: #e4e4e4;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.box-header h3.box-title {
+    padding-left: 5px;
+}
+
+.property_section .box-header h3.box-title {
+    padding-left: 5px;
+}
+
+.psh_header .navbar-nav>li.dropdown.user.user-menu a span {
+    padding: 14px;
+}
+
+.userbox {
+    min-height: 165px !important;
+}
+
+.userbox ul li .uinfo {
+    font-size: 15px !important;
+}
+
+.box {
+    border-radius: 5px;
+    box-shadow: 0 -0px 7px rgba(0, 0, 0, .08), 0 8px 9px rgba(0, 0, 0, .06);
+}
+
+.userbox .media-left {
+    padding-right: 5px;
+}
+
+.mt8 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.btn-custom {
+    padding: 2px 6px;
+    font-size: 15px;
+}
+
+.mr0 .btn-marron {
+    margin-right: 0px;
+}
+
+.mtop8 {
+    margin-top: 8px;
+}
+
+/* .image-border {
+    border: 1px solid #ccc;
+    padding: 3px;
+} */
+
+/* DOCUMENT TAB DROPDOWN  CSS*/
+.tabtop.active a::before{font-size: 45px;}
+.message.tabtop.active a::before{top: 37px;}
+.tabtop li a:last-child{padding: 15px 20px;}
+
+/*Make this class new in text box*/
+.warranty-text-box-date {
+    width: 100%;
+}
+
+.no-data-skin{
+    font-weight: 500;
+    color: #929292;
+    padding-top: 20%;
+    text-align:center; 
+    word-wrap: normal ;
+}

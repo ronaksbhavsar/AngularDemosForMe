@@ -1,0 +1,35 @@
+<div class="box">
+    <div class="box-header with-border">
+        <img fixBrokenImage src="assets/img/bar.png">
+        <h3 class="box-title"> Documents</h3>
+        <div class="box-tools pull-right">
+            <i class="fa fa-file-text-o"></i>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="checklist">
+            <div class="listinfo">
+                <dx-scroll-view class="psh-dashboard-box-height">
+                    <ul>
+                        <li *ngFor="let item of documentDetails | slice:0:4; let i=index">
+                            <a href="{{item.FileAccessUrl}}" download target="_blank">
+                                <span class="list_description">{{item.FileName}} </span>
+                            </a>
+                        </li>
+                        <li *ngIf="documentDetails.length==0">
+                            <div class="list_description no-data-skin">No Document to show.</div>
+                        </li>
+                    </ul>
+                </dx-scroll-view>
+            </div>
+
+            <div class="row">
+                <div class="pull-right" *ngIf="documentDetails.length>2">
+                    <a routerLink="/portfolio" class="btn btn-marron btn-md" title="View All"> View All </a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
